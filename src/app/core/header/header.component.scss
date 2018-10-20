@@ -1,0 +1,99 @@
+.logo {
+    cursor: pointer;
+    
+    padding: 0 .5rem;
+
+    .descktop {
+        height: 2.5rem;
+        display: none;
+    }
+
+    .mobile {
+        height: 2rem;
+        display: block;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+    
+}
+
+@media (min-width: 601px) {
+    .logo {
+        height: 3rem;
+        &.descktop {
+            display: block;
+        }
+        &.mobile {
+            display: none;
+        }
+    }
+    
+    .mat-button {
+        height: 4rem;
+    }
+}
+
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 1rem; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    
+    background-image: linear-gradient(141deg, #0d47a1 0%, #42a5f5 75%);
+    width: 100%;
+
+    text-align: center;
+
+    .logo-menu {
+        img {
+            cursor: pointer;
+            width: 10rem;
+            margin: auto;
+            display: block;
+            
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    .menu-list {
+        margin-top: 2rem;
+        a {
+            padding: 1rem;
+            text-decoration: none;
+            font-size: 1.5rem;
+            color: #ffffff;
+            display: block;
+            transition: 0.3s;
+            
+            &:hover {
+                background: rgba(0, 0, 0, 0.2);
+            }
+        }
+    }
+
+    .closebtn {
+        cursor: pointer;
+        padding: 1rem;
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+        color: rgba(255, 255, 255, 0.70);
+        display: block;
+        transition: 0.3s;
+        
+        &:hover {
+            color: rgba(255, 255, 255, 1);
+        }
+    }
+}

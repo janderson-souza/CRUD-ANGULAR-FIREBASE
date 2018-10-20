@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeModule } from './modules/home/home.module';
 import { ProductModule } from './modules/product/product.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ProductModule } from './modules/product/product.module';
     BrowserAnimationsModule,
     HomeModule,
     ProductModule,
+    CoreModule,
     AppRoutingModule
   ],
   providers: [],
