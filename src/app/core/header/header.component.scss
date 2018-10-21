@@ -1,3 +1,7 @@
+.mat-toolbar {
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+}
+
 .logo {
     cursor: pointer;
     
@@ -6,6 +10,10 @@
     .descktop {
         height: 2.5rem;
         display: none;
+        
+        &:hover {
+            transform: scale(1.1);
+        }
     }
 
     .mobile {
@@ -19,20 +27,8 @@
     
 }
 
-@media (min-width: 601px) {
-    .logo {
-        height: 3rem;
-        &.descktop {
-            display: block;
-        }
-        &.mobile {
-            display: none;
-        }
-    }
-    
-    .mat-button {
-        height: 4rem;
-    }
+.menu-button {
+    display: none;
 }
 
 .sidenav {
@@ -73,9 +69,10 @@
             color: #ffffff;
             display: block;
             transition: 0.3s;
+            background: rgba(0,0,0,0.15);
             
             &:hover {
-                background: rgba(0, 0, 0, 0.2);
+                background: rgba(0, 0, 0, 0.25);
             }
         }
     }
@@ -96,4 +93,34 @@
             color: rgba(255, 255, 255, 1);
         }
     }
+}
+
+
+
+@media (min-width: 601px) {
+    
+    .menu-mobile {
+        display: none;
+    }
+
+    .logo {
+        
+        margin-right: 1rem;
+
+        .descktop {
+            display: block;
+        }
+        
+        .mobile {
+            display: none;
+        }
+    }
+    
+    .menu-button {
+        display: block;
+        font-size: 1.2rem;
+        background: rgba(0, 0, 0, 0.10);
+        height: 100%;
+    }
+
 }

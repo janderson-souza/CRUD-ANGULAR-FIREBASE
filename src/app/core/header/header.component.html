@@ -3,21 +3,21 @@
         <mat-icon aria-label="Example icon-button with a heart icon">menu</mat-icon>
     </button>
 
-    <div class="logo">
+    <div class="logo" routerLink="/home">
         <img class="descktop" src="https://firebasestorage.googleapis.com/v0/b/crud-produto.appspot.com/o/logo-descktop.png?alt=media&token=c76865bc-536f-409f-8dbe-5c5b343c9b89">
         <img class="mobile" src="https://firebasestorage.googleapis.com/v0/b/crud-produto.appspot.com/o/logo-mobile.png?alt=media&token=42cd3c43-bb03-4d32-85cd-5b39439cfcb5">
     </div>
-    <!--
-        <button mat-button>PRODUCT</button>
-    -->
+    
+    <button *ngFor="let menu of routes" class="menu-button" mat-button routerLink="{{menu.router}}">{{menu.title}}</button>
+
 </mat-toolbar>
 
 <div class="sidenav" *ngIf="menuOn" [@slideInOut]>
-    <div class="logo-menu">
+    <div class="logo-menu" routerLink="/home" (click)="menuOn = false">
         <img src="https://firebasestorage.googleapis.com/v0/b/crud-produto.appspot.com/o/logo-descktop.png?alt=media&token=c76865bc-536f-409f-8dbe-5c5b343c9b89">
     </div>
     <a  (click)="menuOn = false" class="closebtn">&times;</a>
     <div class="menu-list">
-        <a href="#">Product</a>
+        <a *ngFor="let menu of routes" routerLink="{{menu.router}}" (click)="menuOn = false">{{menu.title}}</a>
     </div>
 </div>
