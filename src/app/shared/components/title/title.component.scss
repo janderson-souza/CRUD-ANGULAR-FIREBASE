@@ -1,9 +1,8 @@
-@import '../../../../assets/sass/variables';
+@import '../../../../assets/sass/theme.scss';
 
 .title {
-    color: $primary-color-dark-2;
+    color: mat-color($primary-color, 700);
     font-size: 1.5rem;
-    font-family: 'Open Sans', sans-serif;
     text-align: center;
     padding: 1.5rem 0;
     
@@ -19,6 +18,7 @@
         vertical-align:middle;
         opacity: 0.5;
         transition: all 500ms;
+        cursor: pointer;
 
         &:hover {
             opacity: 1;
