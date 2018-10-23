@@ -2,6 +2,22 @@
   Product
 </app-title>
 
-<div class="card">
-a
-</div>
+<app-card>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="default-grid">
+      <mat-form-field>
+        <input matInput placeholder="Code" formControlName="code">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Name" formControlName="name">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Description" formControlName="description">
+      </mat-form-field>
+    </div>
+    <div class="button-bar">
+      <button type="submit" mat-stroked-button color="primary">Clear</button>
+      <button type="submit" mat-flat-button color="primary">Find</button>
+    </div>
+  </form>
+</app-card>

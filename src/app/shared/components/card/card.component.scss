@@ -1,0 +1,8 @@
+@import '../../../../assets/sass/theme.scss';
+
+.card {
+    padding: .5rem;
+    border: solid .1rem mat-color($primary-color);
+    border-radius: .25rem;
+    background: #fff;
+}

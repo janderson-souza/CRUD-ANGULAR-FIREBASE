@@ -23,3 +23,27 @@ $app-theme: mat-light-theme($primary-color, $accent-color, $warn-color);
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($app-theme);
+
+
+.default-grid {
+    mat-form-field { 
+        display: block;
+        padding: 0 0.5rem;
+        min-width: 0;
+    }
+}
+form {
+    button {
+        margin: 0 0.5rem;
+    }
+}
+
+@media (min-width: 601px) {
+    .default-grid{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr ;
+        mat-form-field { 
+            padding: 0 0.5rem;
+        }
+    }
+}
