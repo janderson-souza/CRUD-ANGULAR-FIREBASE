@@ -1,0 +1,9 @@
+@import '../../../../assets/sass/variables.scss';
+
+.card {
+    padding: .5rem;
+
+    border: solid .1rem $primary-color-dark-2;
+    border-radius: .25rem;
+    background: #fff;
+}
