@@ -32,12 +32,12 @@ $app-theme: mat-light-theme($primary-color, $accent-color, $warn-color);
         min-width: 0;
     }
 }
-form {
+.button-bar {
+    text-align: right;
     button {
         margin: 0 0.5rem;
     }
 }
-
 @media (min-width: 601px) {
     .default-grid{
         display: grid;

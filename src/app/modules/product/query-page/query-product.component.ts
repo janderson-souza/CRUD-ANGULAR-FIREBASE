@@ -14,9 +14,9 @@ export class QueryProductComponent implements OnInit {
 
   ngOnInit() {
     this.form = new FormGroup({
-      code: new FormControl(''),
-      name: new FormControl(''),
-      description: new FormControl(''),
+      code: new FormControl(null),
+      name: new FormControl(null),
+      description: new FormControl(null),
     });
   }
 

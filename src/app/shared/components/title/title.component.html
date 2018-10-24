@@ -1,4 +1,7 @@
 <div class="title">
   <mat-icon *ngIf="icon">{{icon}}</mat-icon>
   <span><ng-content></ng-content></span>
+  <span class="button">
+    <ng-content select="button"></ng-content>
+  </span>
 </div>

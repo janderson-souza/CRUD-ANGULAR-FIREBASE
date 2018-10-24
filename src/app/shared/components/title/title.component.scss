@@ -3,12 +3,15 @@
 .title {
     color: mat-color($primary-color, 700);
     font-size: 1.5rem;
-    text-align: center;
     padding: 1.5rem 0;
     
     span {
         height: 100%;
         vertical-align: middle;
+    }
+
+    .button {
+        float: right;
     }
     
     .mat-icon {
@@ -28,7 +31,6 @@
 
 @media (min-width: 601px) { 
     .title {
-        text-align: left;     
         padding: 2rem 0;   
     }
 }
