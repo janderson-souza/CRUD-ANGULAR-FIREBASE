@@ -42,6 +42,7 @@ table {
                 .mobile-label {
                     font-weight: bold;
                     display: block; 
+                    color: mat-color($primary-color, 700);
                 }
             }
         }
