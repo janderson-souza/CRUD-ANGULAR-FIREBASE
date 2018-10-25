@@ -1,1 +1,49 @@
 @import '../../../../assets/sass/theme.scss';
+
+table {
+    width: 100%;
+    border: solid 1px mat-color($primary-color);
+    border-radius: .25rem;
+    tr {
+        border-radius: .25rem;
+        .mobile-label {
+            display: none; 
+        }
+    }
+}
+
+@media (max-width: 600px) { 
+    .mat-table {
+        background: transparent;
+    }
+    table {
+        border: none;
+        background: transparent;
+        .mat-header-row {
+            display: none;
+        }
+        tr {
+            border: solid 1px mat-color($primary-color);
+            border-radius: .25rem;
+            width: auto;
+            margin-bottom: 1rem;
+            display: block;
+            height: auto;
+            background: transparent;
+
+            td {
+                border-radius: .25rem;
+                width: auto;
+                display: block;
+                text-align: left;
+                padding: .5rem;
+                background: #fff;
+
+                .mobile-label {
+                    font-weight: bold;
+                    display: block; 
+                }
+            }
+        }
+    }
+}

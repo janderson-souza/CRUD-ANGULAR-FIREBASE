@@ -32,12 +32,20 @@ $app-theme: mat-light-theme($primary-color, $accent-color, $warn-color);
         min-width: 0;
     }
 }
+
+.result-grid {
+    app-card {
+        margin: 0 1rem;
+    }
+}
+
 .button-bar {
     text-align: right;
     button {
         margin: 0 0.5rem;
     }
 }
+
 @media (min-width: 601px) {
     .default-grid{
         display: grid;

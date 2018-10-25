@@ -1,6 +1,5 @@
 <app-title icon="local_offer">
   Product
-  
   <button type="reset" mat-flat-button  color="primary">NEW PRODUCT</button>
 </app-title>
 
@@ -18,8 +17,39 @@
       </mat-form-field>
     </div>
     <div class="button-bar">
-      <button type="reset"  mat-stroked-button  color="primary">CLEAR</button>
-      <button type="submit" mat-flat-button     color="primary">FIND </button>
+      <button type="reset"  mat-stroked-button  color="primary">CLEAN FILTERS</button>
+      <button type="submit" mat-flat-button     color="primary">FILTER</button>
     </div>
   </form>
 </app-card>
+
+  <table mat-table [dataSource]="products" *ngIf="products">
+    <ng-container matColumnDef="code">
+      <th mat-header-cell *matHeaderCellDef> Code </th>
+      <td mat-cell *matCellDef="let product" class="mobile-col-25"> 
+        <label class="mobile-label">Code</label>
+        {{product.code}} 
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let product" class="mobile-col-75"> 
+        <label class="mobile-label">Name</label>
+        {{product.name}} 
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let product"> 
+        <label class="mobile-label">Description</label>
+        {{product.description}} 
+        <span *ngIf="!product.description">-</span>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  

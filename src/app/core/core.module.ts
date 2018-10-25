@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { MatToolbarModule, MatButtonModule, MatIconModule } from '@angular/material';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { FirebaseConfig } from 'src/environments/firebase.config';
 
 @NgModule({
   imports: [
@@ -10,7 +13,9 @@ import { RouterModule } from '@angular/router';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    RouterModule
+    RouterModule,
+    AngularFireModule.initializeApp(FirebaseConfig),
+    AngularFireDatabaseModule
   ],
   declarations: [
     HeaderComponent
