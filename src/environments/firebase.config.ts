@@ -1,8 +1,8 @@
 export const FirebaseConfig = {
-    apiKey: "AIzaSyChpp9wEsXH14-zxCcrZGCBva2J2bvpFdc",
-    authDomain: "crud-produto.firebaseapp.com",
-    databaseURL: "https://crud-produto.firebaseio.com",
-    projectId: "crud-produto",
-    storageBucket: "crud-produto.appspot.com",
-    messagingSenderId: "203795884035"
+    apiKey: "AIzaSyDFOODjsquyog5BdaI31X0Y9RhYVSH9A-g",
+    authDomain: "crud-product.firebaseapp.com",
+    databaseURL: "https://crud-product.firebaseio.com",
+    projectId: "crud-product",
+    storageBucket: "",
+    messagingSenderId: "480705289521"
 }

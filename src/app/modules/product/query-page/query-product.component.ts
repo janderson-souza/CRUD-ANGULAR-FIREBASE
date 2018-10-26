@@ -35,10 +35,6 @@ export class QueryProductComponent implements OnInit {
   }
 
   onSubmit() {
-    let filter = new Filter<Product>(this.numberOfLines, this.form.value);
-    this.productService.filterBy(filter).subscribe(res => {
-      this.products = res.reverse();
-    });
   }
 
   addLines() {

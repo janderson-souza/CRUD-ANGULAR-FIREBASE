@@ -5,6 +5,7 @@ import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FirebaseConfig } from 'src/environments/firebase.config';
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FirebaseConfig } from 'src/environments/firebase.config';
     MatIconModule,
     RouterModule,
     AngularFireModule.initializeApp(FirebaseConfig),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFirestoreModule
   ],
   declarations: [
     HeaderComponent
