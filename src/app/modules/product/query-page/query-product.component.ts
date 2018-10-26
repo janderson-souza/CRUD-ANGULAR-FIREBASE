@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ProductService } from 'src/app/core/services/product/product.service';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
+import { Filter } from 'src/app/shared/models/find';
+import { Product } from 'src/app/shared/models/product.model';
 
 @Component({
   selector: 'app-query-product',
@@ -9,12 +11,20 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./query-product.component.scss']
 })
 export class QueryProductComponent implements OnInit {
-
-  public form: FormGroup;
-  public products: any;
+  // MATERIAL TABLE 
   public displayedColumns: string[] = ['code', 'name', 'description'];
   
-  constructor(private productService: ProductService) { }
+  // FORM FOR FILTER
+  public form: FormGroup;
+  
+  // RESULT FOR VIEW
+  public products: Array<Product>;
+
+  // TABLE ROWS MAXIMUN
+  public numberOfLines = 5;
+  
+  constructor(private productService: ProductService) { 
+  }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -25,14 +35,14 @@ export class QueryProductComponent implements OnInit {
   }
 
   onSubmit() {
-    this.productService.getProductList().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-      )
-    ).subscribe(products => {
-      this.products = products;
-      console.log(products);
+    let filter = new Filter<Product>(this.numberOfLines, this.form.value);
+    this.productService.filterBy(filter).subscribe(res => {
+      this.products = res.reverse();
     });
   }
 
+  addLines() {
+    this.numberOfLines = this.numberOfLines + 5;
+    this.onSubmit();
+  }
 }
