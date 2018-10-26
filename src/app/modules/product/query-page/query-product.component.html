@@ -28,7 +28,7 @@
       <th mat-header-cell *matHeaderCellDef> Code </th>
       <td mat-cell *matCellDef="let product" class="mobile-col-25"> 
         <label class="mobile-label">Code</label>
-        {{product.code}} 
+        {{product.payload.val().code}} 
       </td>
     </ng-container>
 
@@ -36,7 +36,7 @@
       <th mat-header-cell *matHeaderCellDef> Name </th>
       <td mat-cell *matCellDef="let product" class="mobile-col-75"> 
         <label class="mobile-label">Name</label>
-        {{product.name}} 
+        {{product.payload.val().name}} 
       </td>
     </ng-container>
 
@@ -44,7 +44,7 @@
       <th mat-header-cell *matHeaderCellDef> Description </th>
       <td mat-cell *matCellDef="let product"> 
         <label class="mobile-label">Description</label>
-        {{product.description}} 
+        {{product.payload.val().description}} 
         <span *ngIf="!product.description">-</span>
       </td>
     </ng-container>
@@ -53,3 +53,4 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   
+  <button *ngIf="products" mat-stroked-button (click)="addLines()" class="show-more-button"> Show More </button>

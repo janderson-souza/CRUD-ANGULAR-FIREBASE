@@ -1,17 +1,37 @@
 import { Injectable } from '@angular/core';
-import { AngularFireList, AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireList, AngularFireDatabase, AngularFireAction } from '@angular/fire/database';
 import { Product } from 'src/app/shared/models/product.model';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { Filter } from 'src/app/shared/models/find';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
   private dbPath = '/product';
+
+  private productRef: AngularFireList<Product> = null;
+
+  private filter = new BehaviorSubject(null);
  
-  productRef: AngularFireList<Product> = null;
- 
+  public products: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
+
   constructor(private db: AngularFireDatabase) {
-    this.productRef = db.list(this.dbPath);
+  }
+
+  private createQueryRef(ref: firebase.database.Reference, filter: Filter<Product>): any {
+    if(filter) {
+      let query = ref.limitToLast(filter.numberOfResult);
+      if(filter.obj) {
+        if(filter.obj.name) {
+          query = query.orderByChild('name').startAt(filter.obj.name);
+        }
+      } 
+      return query;
+    } else {
+      return ref;
+    }
   }
  
   createCustomer(product: Product): void {
@@ -26,8 +46,11 @@ export class ProductService {
     this.productRef.remove(key).catch(error => this.handleError(error));
   }
  
-  getProductList(): AngularFireList<Product> {
-    return this.productRef;
+  filterBy(filter: Filter<Product>): Observable<Product[]> {
+    return this.db.list<Product>(
+      this.dbPath, 
+      ref => this.createQueryRef(ref, filter)
+    ).valueChanges()
   }
  
   deleteAll(): void {
