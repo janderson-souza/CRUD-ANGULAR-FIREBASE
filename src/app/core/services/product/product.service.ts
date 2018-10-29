@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, CollectionReference } from '@angular/fire/firestore';
 import { Product } from 'src/app/shared/models/product.model';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { Filter } from 'src/app/shared/models/find';
+import { Observable } from 'rxjs';
+import { QueryFn } from '@angular/fire/firestore';
+import { TypeProduct } from 'src/app/shared/models/type-product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +13,23 @@ export class ProductService {
 
 
   constructor(private db: AngularFirestore) {
-    this.db.collection(this.dbPath, ref => ref.where('code', '==', 'Casa')).valueChanges().subscribe(res => {
-      console.log(res);
-    })
   }
 
+  find(numberOfResults:number, product: Product = null): Observable<Product[]> {
+    return this.db.collection<Product>(this.dbPath, ref => this.createQuery(ref, numberOfResults, product)).valueChanges();
+  }
+
+  createQuery(ref: CollectionReference, numberOfResults:number, product: Product): any {
+    let query: firebase.firestore.Query = ref.limit(Number(numberOfResults));
+    if(product) {
+      if(product.code)        {query = ref.where('code', '==', product.code)}
+      if(product.name)        {query = ref.where('name', '==', product.name)}
+      if(product.description) {query = ref.where('description', '==', product.description)}
+    } 
+    return query;
+  }
+
+  typesOfProduct(): Observable<TypeProduct[]>{
+    return this.db.collection<TypeProduct>('/types-of-product').valueChanges();
+  }
 }

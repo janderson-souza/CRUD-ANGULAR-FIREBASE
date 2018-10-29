@@ -1,29 +1,30 @@
-<app-title icon="local_offer">
-  Product
-  <button type="reset" mat-flat-button  color="primary">NEW PRODUCT</button>
-</app-title>
+<div @slideIn @slideOut *ngIf="!slideOut" (@slideOut.done)="newProduct($event)">
+  <app-title icon="local_offer">
+    Product
+    <button type="reset" mat-flat-button  color="primary" (click)="slideOut = true">NEW PRODUCT</button>
+  </app-title>
 
-<app-card>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="default-grid">
-      <mat-form-field>
-        <input matInput placeholder="Code" formControlName="code">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Name" formControlName="name">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Description" formControlName="description">
-      </mat-form-field>
-    </div>
-    <div class="button-bar">
-      <button type="reset"  mat-stroked-button  color="primary">CLEAN FILTERS</button>
-      <button type="submit" mat-flat-button     color="primary">FILTER</button>
-    </div>
-  </form>
-</app-card>
+  <app-card>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="default-grid">
+        <mat-form-field>
+          <input matInput placeholder="Code" formControlName="code">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Name" formControlName="name">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Description" formControlName="description">
+        </mat-form-field>
+      </div>
+      <div class="button-bar">
+        <button type="reset"  mat-stroked-button  color="primary">CLEAN FILTERS</button>
+        <button type="submit" mat-flat-button     color="primary">FILTER</button>
+      </div>
+    </form>
+  </app-card>
 
-  <table mat-table [dataSource]="products" *ngIf="products">
+  <table mat-table [dataSource]="products" *ngIf="products && products.length != 0">
     <ng-container matColumnDef="code">
       <th mat-header-cell *matHeaderCellDef> Code </th>
       <td mat-cell *matCellDef="let product" class="mobile-col-25"> 
@@ -53,4 +54,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   
-  <button *ngIf="products" mat-stroked-button (click)="addLines()" color="primary" class="show-more-button"> Show More </button>
+  <button *ngIf="products && products.length == getMaxNumberOfLines()" mat-stroked-button (click)="showMore()" color="primary" class="show-more-button"> Show More </button>
+  <button *ngIf="products && products.length == 0" mat-stroked-button (click)="form.reset()" color="primary" class="show-more-button"> Not the result for filters</button>
+</div>

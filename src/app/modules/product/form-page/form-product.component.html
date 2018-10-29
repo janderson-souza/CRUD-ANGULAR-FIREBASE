@@ -1,3 +1,32 @@
-<p>
-  form-product works!
-</p>
+<div @slideIn @slideOut *ngIf="!slideOut" (@slideOut.done)="cancel($event)">
+  <app-title icon="local_offer">
+    <span class="span-new" *ngIf="isNew">New</span> Product <span *ngIf="!isNew">ID</span>
+  </app-title>
+
+  <app-card>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="default-grid">
+          <mat-form-field>
+            <input matInput placeholder="Code" formControlName="code">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Name" formControlName="name">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Description" formControlName="description">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select placeholder="Type of product" formControlName="type">
+              <mat-option *ngFor="let type of types" [value]="type.name">
+                {{type.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="button-bar">
+          <button type="button" mat-stroked-button  color="primary" (click)="slideOut = true" >CANCEL</button>
+          <button type="submit" mat-flat-button     color="primary" >SAVE</button>
+        </div>
+      </form>
+    </app-card>
+</div>
