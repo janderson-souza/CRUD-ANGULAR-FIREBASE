@@ -4,7 +4,7 @@ import { ProductRoutingModule } from './product-routing.module';
 import { QueryProductComponent } from './query-page/query-product.component';
 import { FormProductComponent } from './form-page/form-product.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { MatFormFieldModule, MatInputModule, MatButtonModule, MatTableModule, MatSortModule, MatSelectModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatButtonModule, MatTableModule, MatSortModule, MatSelectModule, MatSnackBarModule, MatSlideToggleModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -18,7 +18,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTableModule,
     MatSortModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule,
+    MatSlideToggleModule
   ],
   declarations: [QueryProductComponent, FormProductComponent]
 })

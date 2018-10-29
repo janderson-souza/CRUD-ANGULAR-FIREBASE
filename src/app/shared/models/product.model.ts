@@ -1,5 +1,7 @@
 export class Product {
-    $key: string;
+    id: string;
+    file:File;
+    urlFile: string;
     name: string;
     code: string;
     description: string;

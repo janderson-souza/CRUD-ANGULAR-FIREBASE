@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FirebaseConfig } from 'src/environments/firebase.config';
 
 @NgModule({
@@ -17,7 +18,8 @@ import { FirebaseConfig } from 'src/environments/firebase.config';
     RouterModule,
     AngularFireModule.initializeApp(FirebaseConfig),
     AngularFireDatabaseModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireStorageModule
   ],
   declarations: [
     HeaderComponent

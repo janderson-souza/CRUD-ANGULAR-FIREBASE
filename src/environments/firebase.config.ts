@@ -3,6 +3,6 @@ export const FirebaseConfig = {
     authDomain: "crud-product.firebaseapp.com",
     databaseURL: "https://crud-product.firebaseio.com",
     projectId: "crud-product",
-    storageBucket: "",
+    storageBucket: "crud-product.appspot.com",
     messagingSenderId: "480705289521"
 }

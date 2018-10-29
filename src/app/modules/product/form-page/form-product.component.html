@@ -1,4 +1,4 @@
-<div @slideIn @slideOut *ngIf="!slideOut" (@slideOut.done)="cancel($event)">
+<div @slideIn @slideOut *ngIf="!slideOut" (@slideOut.done)="returnToQueryPage($event)">
   <app-title icon="local_offer">
     <span class="span-new" *ngIf="isNew">New</span> Product <span *ngIf="!isNew">ID</span>
   </app-title>
@@ -6,15 +6,21 @@
   <app-card>
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="default-grid">
+
+          <div  class="image-product">
+            <img src="https://firebasestorage.googleapis.com/v0/b/crud-product.appspot.com/o/products%2Fb30c10f9-0e28-4dda-919e-8c0884a005f5.c10.jpg?alt=media&token=91ffe43c-9f2c-4ac2-942a-542a2e7a8739"/>
+            <button type="button" mat-stroked-button     color="primary" >UPLOAD IMAGE</button>
+            <input type="file"(change)="onFileChange($event)" />
+          </div>
+
           <mat-form-field>
             <input matInput placeholder="Code" formControlName="code">
           </mat-form-field>
+
           <mat-form-field>
             <input matInput placeholder="Name" formControlName="name">
           </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Description" formControlName="description">
-          </mat-form-field>
+
           <mat-form-field>
             <mat-select placeholder="Type of product" formControlName="type">
               <mat-option *ngFor="let type of types" [value]="type.name">
@@ -22,7 +28,15 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+
+          <mat-slide-toggle class="toggle-product" formControlName="active"  color="primary">{{form.get('active').value ? 'Active' : 'Inactive'}}</mat-slide-toggle>     
+
+          <mat-form-field class="description-product">
+            <input matInput #description placeholder="Description" formControlName="description">
+            <mat-hint align="end">{{description.value.length}}</mat-hint>
+          </mat-form-field>
         </div>
+
         <div class="button-bar">
           <button type="button" mat-stroked-button  color="primary" (click)="slideOut = true" >CANCEL</button>
           <button type="submit" mat-flat-button     color="primary" >SAVE</button>

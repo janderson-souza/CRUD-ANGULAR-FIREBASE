@@ -72,7 +72,7 @@ export class QueryProductComponent implements OnInit {
   find(){
     this.productService.find(this.getMaxNumberOfLines(), this.form.value).subscribe(res => {
       this.products = res;
-    })
+    });
   }
 
   showMore() {
@@ -89,6 +89,10 @@ export class QueryProductComponent implements OnInit {
     } else {
       return this.DEFAULT_NUMBER_OF_LINES;
     }
+  }
+
+  viewProduct(row) {
+    console.log(row);
   }
 
   newProduct($event) {

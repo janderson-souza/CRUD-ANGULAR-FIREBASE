@@ -51,7 +51,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewProduct(row)"></tr>
   </table>
   
   <button *ngIf="products && products.length == getMaxNumberOfLines()" mat-stroked-button (click)="showMore()" color="primary" class="show-more-button"> Show More </button>
