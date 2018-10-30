@@ -36,7 +36,27 @@ export class ProductService {
   }
 
   update(id, product: Product): Promise<any> {
-    return this.db.doc(this.dbPath + "/" + id).update(product);
+    if(product.file) {
+      return new Promise(resolve => {
+        let pathRefImage = this.storagePath + product.code + '_' + product.name + '_' + product.file.name;
+        const fileRef = this.storage.ref(pathRefImage);
+        this.storage.upload(pathRefImage, product.file).snapshotChanges().toPromise().then(res => {
+          fileRef.getDownloadURL().subscribe(urlFile => {
+            product.file = null;
+            product.urlFile = urlFile;
+            this.db.doc(this.dbPath + "/" + id).update(product).then(res => {
+              resolve(res);
+            });
+          })
+        });
+      });
+    } else {
+      return this.db.doc(this.dbPath + "/" + id).update(product);
+    }
+  }
+
+  delete(id): Promise<any>{
+    return this.db.doc(this.dbPath + "/" + id).delete();
   }
 
   find(numberOfResults:number, product: Product = null): Observable<Product[]> {

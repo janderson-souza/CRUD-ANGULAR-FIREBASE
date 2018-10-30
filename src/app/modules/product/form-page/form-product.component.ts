@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/core/services/product/product.service';
 import { TypeProduct } from 'src/app/shared/models/type-product.model';
 import { MatSnackBar } from '@angular/material';
+import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-form-product',
@@ -44,6 +45,8 @@ export class FormProductComponent implements OnInit {
   public slideOut: boolean = false;
   public id: number;
   public types: Array<TypeProduct>;
+  public saving;
+  public deleting;
 
   // FORM
   public form: FormGroup;
@@ -69,7 +72,11 @@ export class FormProductComponent implements OnInit {
       if(res.id != 'new') {
         this.id = res.id;
         this.productService.findById(this.id).subscribe(res => {
-          this.form.setValue(res);
+          if(res) {
+            this.form.setValue(res);
+          } else {
+            this.id = null;
+          }
         });
       }
     });
@@ -83,6 +90,7 @@ export class FormProductComponent implements OnInit {
     if(this.form.valid) {
       if (this.form.get('urlFile').value) {
         this.form.disable();
+        this.saving = true;
         if(!this.id) {
           this.productService.save(this.form.value).then( () => {
             this.slideOut = true;
@@ -98,6 +106,15 @@ export class FormProductComponent implements OnInit {
         this.snackBar.open('Image is required', null, {duration: 2000, panelClass: 'accent'});
       }
     } 
+  }
+
+  deleteProduct() {
+    this.form.disable();
+    this.deleting = true;
+    this.productService.delete(this.id).then(res => {
+      this.slideOut = true;
+      this.snackBar.open('Product deleted successfully', null, {duration: 3000});
+    });
   }
 
   returnToQueryPage($event) {
