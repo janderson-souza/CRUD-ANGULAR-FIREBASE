@@ -6,6 +6,7 @@ import { Filter } from 'src/app/shared/models/find';
 import { Product } from 'src/app/shared/models/product.model';
 import { trigger, transition, style, animate, keyframes } from '@angular/animations';
 import { Router } from '@angular/router';
+import { TypeProduct } from 'src/app/shared/models/type-product.model';
 
 @Component({
   selector: 'app-query-product',
@@ -43,15 +44,24 @@ import { Router } from '@angular/router';
 export class QueryProductComponent implements OnInit {
   private DEFAULT_NUMBER_OF_LINES = 5;
 
+  // PARAM FOR ACTIVE ANIMARION slideOut
+  public slideOut: boolean;
+
   // MATERIAL TABLE 
-  public displayedColumns: string[] = ['code', 'name', 'description'];
+  public displayedColumns: string[] = ['code', 'name', 'type', 'active'];
   
   // FORM FOR FILTER
   public form: FormGroup;
   
   // RESULT FOR VIEW
   public products: Array<Product>;
+  
+  // TYPE OF PRODUCT
+  public types: Array<TypeProduct>;
 
+  // SELECTED ID FOR UPDATE
+  public selectedId: string;
+   
   constructor(private productService: ProductService, private router: Router) { 
   }
 
@@ -59,9 +69,14 @@ export class QueryProductComponent implements OnInit {
     this.form = new FormGroup({
       numberOfLines: new FormControl(this.DEFAULT_NUMBER_OF_LINES),
       code: new FormControl(null),
-      name: new FormControl(null),
-      description: new FormControl(null),
+      type: new FormControl(null),
+      active: new FormControl(null),
     });
+
+    this.productService.typesOfProduct().subscribe( res=> {
+      this.types = res;
+    });
+
     this.find();
   }
 
@@ -91,13 +106,18 @@ export class QueryProductComponent implements OnInit {
     }
   }
 
-  viewProduct(row) {
-    console.log(row);
+  viewProduct(id) {
+    this.selectedId = id;
+    this.slideOut = true;
   }
 
-  newProduct($event) {
+  routeForForm($event) {
     if($event.totalTime > 0) {
-      this.router.navigateByUrl('product/new');
+      if(this.selectedId) {
+        this.router.navigateByUrl('product/'+this.selectedId);
+      } else {
+        this.router.navigateByUrl('product/new');
+      }
     }
   }
 }
