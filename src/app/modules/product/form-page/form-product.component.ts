@@ -79,11 +79,15 @@ export class FormProductComponent implements OnInit {
 
   onSubmit() {
     if(this.form.valid) {
-      this.form.disable();
-      this.productService.save(this.form.value).then( res => {
-        this.slideOut = true;
-        this.snackBar.open('Product saved successfully', null, {duration: 3000});
-      });
+      if (this.form.get('urlFile').value) {
+        this.form.disable();
+        this.productService.save(this.form.value).then( res => {
+          this.slideOut = true;
+          this.snackBar.open('Product saved successfully', null, {duration: 3000});
+        });
+      } else {
+        this.snackBar.open('Image is required', null, {duration: 2000, panelClass: 'accent'});
+      }
     } 
   }
 
