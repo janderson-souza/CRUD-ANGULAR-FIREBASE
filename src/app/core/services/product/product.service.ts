@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, CollectionReference, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore, CollectionReference, DocumentReference, DocumentChangeAction } from '@angular/fire/firestore';
 import { Product } from 'src/app/shared/models/product.model';
 import { Observable } from 'rxjs';
 import { TypeProduct } from 'src/app/shared/models/type-product.model';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -37,16 +37,28 @@ export class ProductService {
   }
 
   find(numberOfResults:number, product: Product = null): Observable<Product[]> {
-    return this.db.collection<Product>(this.dbPath, ref => this.createQuery(ref, numberOfResults, product)).valueChanges();
+    return new Observable((observer) => {
+      this.db.collection<Product>(this.dbPath, ref => this.createQuery(ref, numberOfResults, product)).snapshotChanges().pipe(
+        map((actions: DocumentChangeAction<Product>[]) => {
+          return actions.map((a: DocumentChangeAction<Product>) => {
+            let data: Product = a.payload.doc.data() as Product;
+            data.id = a.payload.doc.id;
+            return data;
+          });
+        })
+      ).subscribe(res => {
+        observer.next(res);
+      });
+    });
   }
 
   createQuery(ref: CollectionReference, numberOfResults:number, product: Product): any {
     let query: firebase.firestore.Query = ref.limit(Number(numberOfResults));
     if(product) {
-      if(product.code)        {query = ref.where('code', '==', product.code)}
-      if(product.name)        {query = ref.where('name', '==', product.name)}
-      if(product.description) {query = ref.where('description', '==', product.description)}
-    } 
+      if(product.code)        {query = query.where('code', '==', product.code)}
+      if(product.type)        {query = query.where('type', '==', product.type)}
+      if(product.active)      {query = query.where('active', '==', product.active)}
+    }
     return query;
   }
 
