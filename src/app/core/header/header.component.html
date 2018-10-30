@@ -4,8 +4,8 @@
     </button>
 
     <div class="logo" routerLink="/home">
-        <img class="descktop" src="https://firebasestorage.googleapis.com/v0/b/crud-product.appspot.com/o/logo-2.png?alt=media&token=bb9c2195-48dd-4aa8-b7f0-198358062de9">
-        <img class="mobile" src="https://firebasestorage.googleapis.com/v0/b/crud-product.appspot.com/o/logo-mobile.png?alt=media&token=a587ed44-5ba9-4a95-ba85-a393e82f726a">
+        <img class="descktop" src="https://firebasestorage.googleapis.com/v0/b/crud-product.appspot.com/o/logo.png?alt=media&token=c32d7ae3-00e3-42a3-acf1-f4076dd0c48c">
+        <img class="mobile" src="https://firebasestorage.googleapis.com/v0/b/crud-product.appspot.com/o/logo-mobile.png?alt=media&token=3981567b-054d-4448-ad1c-1558908a1e6b">
     </div>
     
     <button *ngFor="let menu of routes" class="menu-button" mat-button routerLink="{{menu.router}}">{{menu.title}}</button>
@@ -14,7 +14,7 @@
 
 <div class="sidenav" *ngIf="menuOn" [@slideInOut]>
     <div class="logo-menu" routerLink="/home" (click)="menuOn = false">
-        <img src="https://firebasestorage.googleapis.com/v0/b/crud-product.appspot.com/o/logo-2.png?alt=media&token=bb9c2195-48dd-4aa8-b7f0-198358062de9">
+        <img src="https://firebasestorage.googleapis.com/v0/b/crud-product.appspot.com/o/logo.png?alt=media&token=c32d7ae3-00e3-42a3-acf1-f4076dd0c48c">
     </div>
     <a  (click)="menuOn = false" class="closebtn">&times;</a>
     <div class="menu-list">
