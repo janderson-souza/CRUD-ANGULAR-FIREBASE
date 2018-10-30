@@ -63,6 +63,7 @@ export class FormProductComponent implements OnInit {
       type: new FormControl(null, Validators.required),
       active: new FormControl(false, Validators.required),
       file: new FormControl(null),
+      urlFile: new FormControl(null)
     });
 
     this.route.params.subscribe(res => {
@@ -77,11 +78,11 @@ export class FormProductComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value);
     if(this.form.valid) {
+      this.form.disable();
       this.productService.save(this.form.value).then( res => {
         this.slideOut = true;
-        this.snackBar.open('Product saved successfully', null, {duration: 2000});
+        this.snackBar.open('Product saved successfully', null, {duration: 3000});
       });
     } 
   }
@@ -92,11 +93,38 @@ export class FormProductComponent implements OnInit {
     }
   }
 
-  onFileChange(event) {
+  removeImage() {
+    this.form.get('file').setValue(null);
+    this.form.get('urlFile').setValue(null);
+  }
+
+  onFileChange(event, input:any) {
     let reader = new FileReader();
-    if(event.target.files && event.target.files.length) {
+    if(this.fileIsValid(event.target.files)) {
       this.form.get('file').setValue(event.target.files[0]);
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+    
+      reader.onload = () => {
+        this.form.get('urlFile').setValue(reader.result);
+        input.value = "";
+      };
+    } else {
+      input.value = "";
+      this.snackBar.open('Invalid file', null, {duration: 2000, panelClass: 'accent'});
     }
+  }
+
+  fileIsValid(files: File[]): boolean {
+    return files 
+        && files.length == 1
+        && (files[0].type == 'image/png' || files[0].type == 'image/jpg' || files[0].type == 'image/jpeg' || files[0].type == 'image/gif');
+  }
+
+  getErrorMessage(fc: FormControl): string {
+    return fc.hasError('required') ? 'You must enter a value' :
+           fc.hasError('pattern') ? 'This field only receives numbers' :
+           '';
   }
 
 }
