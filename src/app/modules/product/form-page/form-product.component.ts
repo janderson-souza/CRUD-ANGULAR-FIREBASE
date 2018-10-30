@@ -42,7 +42,6 @@ import { MatSnackBar } from '@angular/material';
 export class FormProductComponent implements OnInit {
 
   public slideOut: boolean = false;
-  public isNew: boolean = true;
   public id: number;
   public types: Array<TypeProduct>;
 
@@ -68,7 +67,10 @@ export class FormProductComponent implements OnInit {
 
     this.route.params.subscribe(res => {
       if(res.id != 'new') {
-
+        this.id = res.id;
+        this.productService.findById(this.id).subscribe(res => {
+          this.form.setValue(res);
+        });
       }
     });
 
@@ -81,10 +83,17 @@ export class FormProductComponent implements OnInit {
     if(this.form.valid) {
       if (this.form.get('urlFile').value) {
         this.form.disable();
-        this.productService.save(this.form.value).then( res => {
-          this.slideOut = true;
-          this.snackBar.open('Product saved successfully', null, {duration: 3000});
-        });
+        if(!this.id) {
+          this.productService.save(this.form.value).then( () => {
+            this.slideOut = true;
+            this.snackBar.open('Product saved successfully', null, {duration: 3000});
+          });
+        } else {
+          this.productService.update(this.id, this.form.value).then(() => {
+            this.slideOut = true;
+            this.snackBar.open('Product updated successfully', null, {duration: 3000});
+          });
+        }
       } else {
         this.snackBar.open('Image is required', null, {duration: 2000, panelClass: 'accent'});
       }

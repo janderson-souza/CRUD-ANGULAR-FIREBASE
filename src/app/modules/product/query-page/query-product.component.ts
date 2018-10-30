@@ -114,6 +114,7 @@ export class QueryProductComponent implements OnInit {
   routeForForm($event) {
     if($event.totalTime > 0) {
       if(this.selectedId) {
+        console.log(this.selectedId);
         this.router.navigateByUrl('product/'+this.selectedId);
       } else {
         this.router.navigateByUrl('product/new');

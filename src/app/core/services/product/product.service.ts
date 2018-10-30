@@ -33,7 +33,10 @@ export class ProductService {
         resolve(this.db.collection<Product>(this.dbPath).add(product));
       }
     });
-    
+  }
+
+  update(id, product: Product): Promise<any> {
+    return this.db.doc(this.dbPath + "/" + id).update(product);
   }
 
   find(numberOfResults:number, product: Product = null): Observable<Product[]> {
@@ -50,6 +53,14 @@ export class ProductService {
         observer.next(res);
       });
     });
+  }
+
+  findById(id): Observable<Product> {
+    return new Observable((observer) => {
+      this.db.doc<Product>(this.dbPath + "/" + id).get().subscribe(res =>{
+        observer.next(res.data() as Product);
+      });
+    })
   }
 
   createQuery(ref: CollectionReference, numberOfResults:number, product: Product): any {

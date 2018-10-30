@@ -70,7 +70,7 @@
       </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewProduct(row)"></tr>
+    <tr mat-row *matRowDef="let product; columns: displayedColumns;" (click)="viewProduct(product.id)"></tr>
   </table>
   
   <button *ngIf="products && products.length == getMaxNumberOfLines()" mat-stroked-button (click)="showMore()" color="primary" class="show-more-button"> Show More </button>

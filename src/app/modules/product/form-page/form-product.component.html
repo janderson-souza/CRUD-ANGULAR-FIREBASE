@@ -1,6 +1,6 @@
 <div @slideIn @slideOut *ngIf="!slideOut" (@slideOut.done)="returnToQueryPage($event)">
   <app-title icon="local_offer">
-    <span class="span-new" *ngIf="isNew">New</span> Product <span *ngIf="!isNew">ID</span>
+    <span class="span-new" *ngIf="!id">New</span> <span *ngIf="id">Update</span> Product 
   </app-title>
 
   <app-card>
