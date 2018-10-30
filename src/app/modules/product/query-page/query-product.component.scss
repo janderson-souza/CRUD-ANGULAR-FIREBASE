@@ -5,7 +5,12 @@ table {
     border: solid 1px mat-color($primary-color);
     border-radius: .25rem;
     tr {
+        cursor: pointer;
         border-radius: .25rem;
+        &.mat-row:hover {
+            background: mat-color($primary-color, A100);
+            td{color: #fff};
+        }
         .mobile-label {
             display: none; 
         }
@@ -35,6 +40,11 @@ table {
             height: auto;
             background: transparent;
 
+            &.mat-row:hover {
+                background: #fff;
+                td{color: #000; background: rgba(0, 0, 0, 0.1)};
+            }
+            
             td {
                 border-radius: .25rem;
                 width: auto;
