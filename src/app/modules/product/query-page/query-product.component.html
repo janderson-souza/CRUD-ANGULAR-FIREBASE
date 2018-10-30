@@ -1,4 +1,4 @@
-<div @slideIn @slideOut *ngIf="!slideOut" (@slideOut.done)="newProduct($event)">
+<div @slideIn @slideOut *ngIf="!slideOut" (@slideOut.done)="routeForForm($event)">
   <app-title icon="local_offer">
     Product
     <button type="reset" mat-flat-button  color="primary" (click)="slideOut = true">NEW PRODUCT</button>
@@ -10,11 +10,22 @@
         <mat-form-field>
           <input matInput placeholder="Code" formControlName="code">
         </mat-form-field>
+
         <mat-form-field>
-          <input matInput placeholder="Name" formControlName="name">
+          <mat-select placeholder="Type of product" formControlName="type">
+            <mat-option [value]="">-</mat-option>
+            <mat-option *ngFor="let type of types" [value]="type.name">
+              {{type.name}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
+
         <mat-form-field>
-          <input matInput placeholder="Description" formControlName="description">
+          <mat-select placeholder="Active product" formControlName="active">
+            <mat-option [value]="">-</mat-option>
+            <mat-option [value]="true">Yes</mat-option>
+            <mat-option [value]="false">No</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
       <div class="button-bar">
@@ -41,14 +52,22 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef> Description </th>
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> Type </th>
       <td mat-cell *matCellDef="let product"> 
-        <label class="mobile-label">Description</label>
-        {{product.description}} 
-        <span *ngIf="!product.description">-</span>
+        <label class="mobile-label">Type</label>
+        {{product.type}} 
       </td>
     </ng-container>
+
+    <ng-container matColumnDef="active">
+        <th mat-header-cell *matHeaderCellDef>Active</th>
+        <td mat-cell *matCellDef="let product"> 
+          <label class="mobile-label">Active</label>
+          <span *ngIf="product.active">Yes</span> 
+          <span *ngIf="!product.active">No</span> 
+        </td>
+      </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewProduct(row)"></tr>
