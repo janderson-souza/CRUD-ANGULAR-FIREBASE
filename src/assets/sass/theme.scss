@@ -41,15 +41,13 @@ $app-theme: mat-light-theme($primary-color, $accent-color, $warn-color);
 
 .button-bar {
     text-align: right;
+    margin-top: 1rem; 
     button {
         margin: 0 0.5rem;
     }
 }
 
 @media (min-width: 601px) {
-    .button-bar {
-        margin-top: 1rem; 
-    }
     .default-grid{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr ;
@@ -61,8 +59,7 @@ $app-theme: mat-light-theme($primary-color, $accent-color, $warn-color);
 
 .mat-snack-bar-container {
     background: mat-color($primary-color, 500);
-}
-.mat-snack-bar-handset {
-    width: 50% !important;
-    margin: auto;
+    &.accent {
+        background: mat-color($accent-color, 500);
+    }
 }

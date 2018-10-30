@@ -8,17 +8,21 @@
         <div class="default-grid">
 
           <div  class="image-product">
-            <img src="https://firebasestorage.googleapis.com/v0/b/crud-product.appspot.com/o/products%2Fb30c10f9-0e28-4dda-919e-8c0884a005f5.c10.jpg?alt=media&token=91ffe43c-9f2c-4ac2-942a-542a2e7a8739"/>
-            <button type="button" mat-stroked-button     color="primary" >UPLOAD IMAGE</button>
-            <input type="file"(change)="onFileChange($event)" />
+            <img *ngIf="form.get('urlFile') && form.get('urlFile').value" [src]="form.get('urlFile').value"/>
+            <button type="button" mat-stroked-button color="primary" *ngIf="form.get('urlFile') && !form.get('urlFile').value" (click)="file.click()" class="button-upload">UPLOAD IMAGE</button>
+            <button type="button" mat-stroked-button color="primary"  *ngIf="form.get('urlFile') &&  form.get('urlFile').value" (click)="removeImage()" [disabled]="form.disabled">REMOVE IMAGE</button>
+            <input #file type="file"(change)="onFileChange($event, file)"/>
           </div>
 
           <mat-form-field>
-            <input matInput placeholder="Code" formControlName="code">
+            <input #code matInput placeholder="Code" formControlName="code" maxlength="5">
+            <mat-error *ngIf="form.get('code').invalid">{{getErrorMessage(form.get('code'))}}</mat-error>
+            <mat-hint align="end">{{code.value.length}}/5</mat-hint>
           </mat-form-field>
 
           <mat-form-field>
             <input matInput placeholder="Name" formControlName="name">
+            <mat-error *ngIf="form.get('name').invalid">{{getErrorMessage(form.get('name'))}}</mat-error>
           </mat-form-field>
 
           <mat-form-field>
@@ -27,19 +31,21 @@
                 {{type.name}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="form.get('type').invalid">{{getErrorMessage(form.get('type'))}}</mat-error>
           </mat-form-field>
 
           <mat-slide-toggle class="toggle-product" formControlName="active"  color="primary">{{form.get('active').value ? 'Active' : 'Inactive'}}</mat-slide-toggle>     
 
           <mat-form-field class="description-product">
-            <input matInput #description placeholder="Description" formControlName="description">
-            <mat-hint align="end">{{description.value.length}}</mat-hint>
+            <input matInput #description placeholder="Description" formControlName="description" maxlength="150">
+            <mat-hint align="end">{{description.value.length}}/150</mat-hint>
+            <mat-error *ngIf="form.get('description').invalid">{{getErrorMessage(form.get('description'))}}</mat-error>
           </mat-form-field>
         </div>
 
         <div class="button-bar">
-          <button type="button" mat-stroked-button  color="primary" (click)="slideOut = true" >CANCEL</button>
-          <button type="submit" mat-flat-button     color="primary" >SAVE</button>
+          <button type="button" mat-stroked-button  color="primary" (click)="slideOut = true" [disabled]="form.disabled">CANCEL</button>
+          <button type="submit" mat-flat-button     color="primary" [disabled]="form.disabled" class="save-button"><span *ngIf="!form.disabled">SAVE</span> <span *ngIf="form.disabled">SAVING</span><img *ngIf="form.disabled" src="https://firebasestorage.googleapis.com/v0/b/crud-product.appspot.com/o/loading.gif?alt=media&token=98cfa1a8-0f2c-40fe-b6fa-7ee4e722ff21"/></button>
         </div>
       </form>
     </app-card>
