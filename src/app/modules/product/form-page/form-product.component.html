@@ -51,9 +51,14 @@
             <img *ngIf="form.disabled && saving" src="https://firebasestorage.googleapis.com/v0/b/crud-product.appspot.com/o/loading.gif?alt=media&token=98cfa1a8-0f2c-40fe-b6fa-7ee4e722ff21"/>
           </button>
         </div>
+        <button type="button" mat-stroked-button     color="accent"  (click)="deleteProduct()" [disabled]="form.disabled" *ngIf="id" class="delete-button">
+          <span *ngIf="!form.disabled || saving">DELETE</span> 
+          <span *ngIf="form.disabled && deleting">DELETING</span>
+          <img  *ngIf="form.disabled && deleting"src="https://firebasestorage.googleapis.com/v0/b/crud-product.appspot.com/o/loading-accent.gif?alt=media&token=39bbb8fa-cc0d-4fed-ae0a-250673703113"/>
+        </button>
       </form>
     </app-card>
-    <button type="button" mat-stroked-button     color="accent"  (click)="deleteProduct()" [disabled]="form.disabled" *ngIf="id" class="delete-button">
+    <button type="button" mat-stroked-button     color="accent"  (click)="deleteProduct()" [disabled]="form.disabled" *ngIf="id" class="delete-button-mobile">
         <span *ngIf="!form.disabled || saving">DELETE</span> 
         <span *ngIf="form.disabled && deleting">DELETING</span>
         <img  *ngIf="form.disabled && deleting"src="https://firebasestorage.googleapis.com/v0/b/crud-product.appspot.com/o/loading-accent.gif?alt=media&token=39bbb8fa-cc0d-4fed-ae0a-250673703113"/>

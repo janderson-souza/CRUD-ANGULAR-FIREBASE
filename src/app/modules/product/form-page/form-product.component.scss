@@ -47,7 +47,24 @@
         margin-left: 1rem;
     }
 }
+
 .delete-button {
+    float: left;
+    margin-top: -36px;
+    display: none;
+    &[disabled] {
+        background: transparent !important;
+        color: mat-color($accent-color) !important;
+        cursor: progress;
+
+        img {
+            height: 2rem;
+            margin-left: 1rem;
+        }
+    }
+}
+
+.delete-button-mobile {
     width: 100%;
     &[disabled] {
         background: transparent !important;
@@ -58,5 +75,16 @@
             height: 2rem;
             margin-left: 1rem;
         }
+    }
+}
+
+
+@media (min-width: 601px) { 
+    .delete-button {
+        display: block;
+    }
+    
+    .delete-button-mobile {
+        display: none;
     }
 }
