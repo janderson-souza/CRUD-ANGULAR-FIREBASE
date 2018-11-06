@@ -15,13 +15,9 @@ import { TouchSequence } from 'selenium-webdriver';
     trigger('slideIn', [
       transition(':enter', [
         style({transform: 'translateX(100%)'}),
-        animate(600,  keyframes(
+        animate(250,  keyframes(
           [
             style({ transform: 'translateX(100%)'}),
-            style({ transform: 'translateX(10%)'}),
-            style({ transform: 'translateX(-10%)'}),
-            style({ transform: 'translateX(5%)'}),
-            style({ transform: 'translateX(-5%)'}),
             style({ transform: 'translateX(0%)'}),
           ]
         ))
@@ -29,10 +25,9 @@ import { TouchSequence } from 'selenium-webdriver';
     ]),
     trigger('slideOut', [
       transition(':leave', [
-        animate(300,  keyframes(
+        animate(250,  keyframes(
           [
             style({ transform: 'translateX(0%)'}),
-            style({ transform: 'translateX(-10%)'}),
             style({ transform: 'translateX(100%)'}),
           ]
         ))

@@ -16,12 +16,9 @@ import { TypeProduct } from 'src/app/shared/models/type-product.model';
     trigger('slideIn', [
       transition(':enter', [
         style({transform: 'translateX(-100%)'}),
-        animate(600,  keyframes(
+        animate(250,  keyframes(
           [
            style({ transform: 'translateX(-100%)'}),
-           style({ transform: 'translateX(10%)'}),
-           style({ transform: 'translateX(-5%)'}),
-           style({ transform: 'translateX(5%)'}),
            style({ transform: 'translateX(0%)'}),
           ]
         ))
@@ -29,11 +26,9 @@ import { TypeProduct } from 'src/app/shared/models/type-product.model';
     ]),
     trigger('slideOut', [
       transition(':leave', [
-        animate(300,  keyframes(
+        animate(250,  keyframes(
           [
            style({ transform: 'translateX(0%)'}),
-           style({ transform: 'translateX(10%)'}),
-           style({ transform: 'translateX(-15%)'}),
            style({ transform: 'translateX(-100%)'}),
           ]
         ))
